@@ -41,7 +41,7 @@ import static com.wepay.kafka.connect.bigquery.config.BigQuerySinkConfig.PROJECT
 public abstract class GcpClientBuilder<Client> {
 
   public enum KeySource {
-    FILE, JSON
+    FILE, JSON, SERVICE_ACCOUNT
   }
 
   private static final Logger logger = LoggerFactory.getLogger(GcpClientBuilder.class);
@@ -78,7 +78,7 @@ public abstract class GcpClientBuilder<Client> {
   }
 
   private GoogleCredentials credentials() {
-    if (key == null) {
+    if (key == null && keySource != KeySource.SERVICE_ACCOUNT) {
       return null;
     }
 
@@ -98,6 +98,13 @@ public abstract class GcpClientBuilder<Client> {
           throw new BigQueryConnectException("Failed to access JSON key file", e);
         }
         break;
+      case SERVICE_ACCOUNT:
+        try {
+          logger.debug("Attempting to use the service account");
+          return GoogleCredentials.getApplicationDefault();
+        } catch (IOException e) {
+          throw new BigQueryConnectException("Failed to create Application Default Credentials", e);
+        }
       default:
         throw new IllegalArgumentException("Unexpected value for KeySource enum: " + keySource);
     }

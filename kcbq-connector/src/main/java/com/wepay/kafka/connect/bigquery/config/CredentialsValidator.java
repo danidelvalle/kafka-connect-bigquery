@@ -54,7 +54,7 @@ public abstract class CredentialsValidator<ClientBuilder extends GcpClientBuilde
   @Override
   protected Optional<String> doValidate(BigQuerySinkConfig config) {
     String keyFile = config.getKey();
-    if (keyFile == null || keyFile.isEmpty()) {
+    if (keyFile == null || keyFile.isEmpty() || config.getKeySource() == GcpClientBuilder.KeySource.SERVICE_ACCOUNT) {
       // No credentials to validate
       return Optional.empty();
     }
