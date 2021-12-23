@@ -24,6 +24,7 @@ import org.junit.Test;
 
 import java.util.Optional;
 
+import static com.wepay.kafka.connect.bigquery.config.CredentialsValidator.ERROR_MESSAGE_KEY_SHOULD_NOT_BE_PROVIDED_IF_ADC;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.mockito.ArgumentMatchers.eq;
@@ -64,6 +65,30 @@ public class CredentialsValidatorTest {
     assertNotEquals(
         Optional.empty(),
         new CredentialsValidator.GcsCredentialsValidator().doValidate(config)
+    );
+  }
+
+  @Test
+  public void testApplicationDefaultCredentials() {
+    BigQuerySinkConfig config = mock(BigQuerySinkConfig.class);
+    when(config.getKey()).thenReturn(null);
+    when(config.getKeySource()).thenReturn(GcpClientBuilder.KeySource.APPLICATION_DEFAULT);
+
+    assertNotEquals(
+            Optional.empty(),
+            new CredentialsValidator.BigQueryCredentialsValidator().doValidate(config)
+    );
+  }
+
+  @Test
+  public void testKeyShouldNotBeProvidedIfUsingApplicationDefaultCredentials() {
+    BigQuerySinkConfig config = mock(BigQuerySinkConfig.class);
+    when(config.getKey()).thenReturn("key");
+    when(config.getKeySource()).thenReturn(GcpClientBuilder.KeySource.APPLICATION_DEFAULT);
+
+    assertEquals(
+            Optional.of(ERROR_MESSAGE_KEY_SHOULD_NOT_BE_PROVIDED_IF_ADC),
+            new CredentialsValidator.BigQueryCredentialsValidator().doValidate(config)
     );
   }
 }
