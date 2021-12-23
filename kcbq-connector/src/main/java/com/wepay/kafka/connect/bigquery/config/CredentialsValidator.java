@@ -47,7 +47,7 @@ public abstract class CredentialsValidator<ClientBuilder extends GcpClientBuilde
       PROJECT_CONFIG, KEY_SOURCE_CONFIG
   ));
 
-  public static final String ERROR_MESSAGE_KEY_SHOULD_NOT_BE_PROVIDED_IF_ADC = KEYFILE_CONFIG + " should not be"
+  public static final String ERROR_MESSAGE_KEY_SHOULD_NOT_BE_PROVIDED_IF_ADC = KEYFILE_CONFIG + " should not be "
           + "provided if " + KEY_SOURCE_CONFIG + " is " + KeySource.APPLICATION_DEFAULT;
 
   @Override
