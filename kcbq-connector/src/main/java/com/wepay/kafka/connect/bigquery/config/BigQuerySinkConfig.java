@@ -148,7 +148,7 @@ public class BigQuerySinkConfig extends AbstractConfig {
   private static final ConfigDef.Importance KEY_SOURCE_IMPORTANCE = ConfigDef.Importance.MEDIUM;
   private static final String KEY_SOURCE_DOC =
           "Determines whether the keyfile config is the path to the credentials json, the json itself " +
-                  "or a service account (only in GCP)";
+                  "or it is not provided as Application Default Credentials (ADC) are used.";
 
   public static final String SANITIZE_TOPICS_CONFIG =                     "sanitizeTopics";
   private static final ConfigDef.Type SANITIZE_TOPICS_TYPE =              ConfigDef.Type.BOOLEAN;

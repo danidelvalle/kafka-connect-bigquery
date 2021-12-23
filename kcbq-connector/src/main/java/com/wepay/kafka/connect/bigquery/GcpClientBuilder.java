@@ -41,7 +41,7 @@ import static com.wepay.kafka.connect.bigquery.config.BigQuerySinkConfig.PROJECT
 public abstract class GcpClientBuilder<Client> {
 
   public enum KeySource {
-    FILE, JSON, SERVICE_ACCOUNT
+    FILE, JSON, APPLICATION_DEFAULT
   }
 
   private static final Logger logger = LoggerFactory.getLogger(GcpClientBuilder.class);
@@ -78,7 +78,7 @@ public abstract class GcpClientBuilder<Client> {
   }
 
   private GoogleCredentials credentials() {
-    if (key == null && keySource != KeySource.SERVICE_ACCOUNT) {
+    if (key == null && keySource != KeySource.APPLICATION_DEFAULT) {
       return null;
     }
 
@@ -98,7 +98,7 @@ public abstract class GcpClientBuilder<Client> {
           throw new BigQueryConnectException("Failed to access JSON key file", e);
         }
         break;
-      case SERVICE_ACCOUNT:
+      case APPLICATION_DEFAULT:
         try {
           logger.debug("Attempting to use application default credentials");
           return GoogleCredentials.getApplicationDefault();
