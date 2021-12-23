@@ -100,7 +100,7 @@ public abstract class GcpClientBuilder<Client> {
         break;
       case SERVICE_ACCOUNT:
         try {
-          logger.debug("Attempting to use the service account");
+          logger.debug("Attempting to use application default credentials");
           return GoogleCredentials.getApplicationDefault();
         } catch (IOException e) {
           throw new BigQueryConnectException("Failed to create Application Default Credentials", e);
