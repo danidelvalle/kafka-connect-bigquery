@@ -47,9 +47,6 @@ public abstract class CredentialsValidator<ClientBuilder extends GcpClientBuilde
       PROJECT_CONFIG, KEY_SOURCE_CONFIG
   ));
 
-  public static final String ERROR_MESSAGE_KEY_SHOULD_NOT_BE_PROVIDED_IF_ADC = KEYFILE_CONFIG + " should not be "
-          + "provided if " + KEY_SOURCE_CONFIG + " is " + KeySource.APPLICATION_DEFAULT;
-
   @Override
   protected Collection<String> dependents() {
     return DEPENDENTS;
@@ -61,7 +58,9 @@ public abstract class CredentialsValidator<ClientBuilder extends GcpClientBuilde
     KeySource keySource = config.getKeySource();
 
     if (keySource == KeySource.APPLICATION_DEFAULT && keyFile != null  && !keyFile.isEmpty()) {
-      return Optional.of(ERROR_MESSAGE_KEY_SHOULD_NOT_BE_PROVIDED_IF_ADC);
+      String errorMessage = KEYFILE_CONFIG + " should not be provided if " + KEY_SOURCE_CONFIG
+              + " is " + KeySource.APPLICATION_DEFAULT;
+      return Optional.of(errorMessage);
     }
 
     if ((keyFile == null || keyFile.isEmpty()) && config.getKeySource() != GcpClientBuilder.KeySource.APPLICATION_DEFAULT) {
