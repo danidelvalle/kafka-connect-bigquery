@@ -64,7 +64,7 @@ public abstract class CredentialsValidator<ClientBuilder extends GcpClientBuilde
       return Optional.of(ERROR_MESSAGE_KEY_SHOULD_NOT_BE_PROVIDED_IF_ADC);
     }
 
-    if ( (keyFile == null || keyFile.isEmpty()) && config.getKeySource() != GcpClientBuilder.KeySource.APPLICATION_DEFAULT) {
+    if ((keyFile == null || keyFile.isEmpty()) && config.getKeySource() != GcpClientBuilder.KeySource.APPLICATION_DEFAULT) {
       // No credentials to validate
       return Optional.empty();
     }
