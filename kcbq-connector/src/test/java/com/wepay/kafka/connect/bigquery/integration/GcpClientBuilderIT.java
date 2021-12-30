@@ -27,7 +27,8 @@ public class GcpClientBuilderIT extends BaseConnectorIT {
             properties.put(BigQuerySinkConfig.KEYFILE_CONFIG, null);
         }
         else if (keySource == GcpClientBuilder.KeySource.JSON){
-            // actually keySource is the path to the credentials file, so we convert it to the json string
+            // actually keyFile is the path to the credentials file, so we convert it to the json string
+
             String credentialsJsonString = new String(Files.readAllBytes(Paths.get(keyFile())), StandardCharsets.UTF_8);
             properties.put(BigQuerySinkConfig.KEYFILE_CONFIG, credentialsJsonString);
         }
