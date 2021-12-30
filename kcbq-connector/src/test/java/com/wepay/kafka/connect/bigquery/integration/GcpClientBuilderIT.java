@@ -22,7 +22,8 @@ public class GcpClientBuilderIT extends BaseConnectorIT {
         Map<String, String> properties = baseConnectorProps(1);
         properties.put(BigQuerySinkConfig.KEY_SOURCE_CONFIG, keySource.name());
 
-        if(keySource == GcpClientBuilder.KeySource.APPLICATION_DEFAULT) {
+        if (keySource == GcpClientBuilder.KeySource.APPLICATION_DEFAULT) {
+
             properties.put(BigQuerySinkConfig.KEYFILE_CONFIG, null);
         }
         else if (keySource == GcpClientBuilder.KeySource.JSON){
