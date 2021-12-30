@@ -69,18 +69,6 @@ public class CredentialsValidatorTest {
   }
 
   @Test
-  public void testApplicationDefaultCredentials() {
-    BigQuerySinkConfig config = mock(BigQuerySinkConfig.class);
-    when(config.getKey()).thenReturn(null);
-    when(config.getKeySource()).thenReturn(GcpClientBuilder.KeySource.APPLICATION_DEFAULT);
-
-    assertNotEquals(
-            Optional.empty(),
-            new CredentialsValidator.BigQueryCredentialsValidator().doValidate(config)
-    );
-  }
-
-  @Test
   public void testKeyShouldNotBeProvidedIfUsingApplicationDefaultCredentials() {
     BigQuerySinkConfig config = mock(BigQuerySinkConfig.class);
     when(config.getKey()).thenReturn("key");
