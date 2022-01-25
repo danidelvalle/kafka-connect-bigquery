@@ -136,7 +136,6 @@ public class MergeQueriesTest {
             + ");";
     String actualQuery = mergeQueries(true, true, false)
         .mergeFlushQuery(INTERMEDIATE_TABLE, DESTINATION_TABLE, BATCH_NUMBER);
-    System.out.println(actualQuery);
     assertEquals(expectedQuery, actualQuery);
   }
 
